@@ -1,0 +1,19 @@
+{
+    "cliente": "Rafael",
+    "status": "Finalizado",
+    "produtos": [
+        {
+            "nome": "Pizza",
+            "preco": 45.0
+        },
+        {
+            "nome": "Sorvete",
+            "preco": 15.0
+        },
+        {
+            "nome": "Coca-cola",
+            "preco": 12.0
+        }
+    ],
+    "total": 72.0
+}
