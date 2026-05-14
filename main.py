@@ -22,6 +22,7 @@ def main():
         menu = input('Digite a opção desejada: ')
         if menu == '0':
             print('Obrigado pela preferência. Volte sempre!')
+            print('=' * 30)
             break
         elif menu == '1':
             novo_pedido()

@@ -146,11 +146,14 @@ def ver_pedido():
             arquivo_pasta = os.path.join(pasta_pedidos, escolha)
             with open(arquivo_pasta, 'r') as arquivo:
                 pedido = json.load(arquivo)
-            
-            for c, v in pedido:
-                print(f'{c} - {v}')
-                
 
+            print('=' * 30)
+            print(f"Cliente: {pedido['cliente']}")
+            print(f"Status: {pedido['status']}")
+            for i,produto in enumerate(pedido['produtos'], start=1):
+                print(f"{i} - {produto['nome']} - R${produto['preco']:.2f}")
+            print(f"Total: {pedido['total']:.2f}")
+            print('=' * 30)
 
             
         
