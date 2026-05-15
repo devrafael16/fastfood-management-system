@@ -134,26 +134,33 @@ def novo_pedido():
 def ver_pedido():
     caminho_pasta = os.path.dirname(__file__)
     pasta_pedidos = os.path.join(caminho_pasta, 'pedidos')
-    pasta = os.listdir(pasta_pedidos)
-    for i, valor in enumerate(pasta):
-        print(f'{i + 1} - {valor}') 
-        print()
-    escolha_arquivo = input('Escolha um pedido da lista: ')
-    if escolha_arquivo.isdigit():
-        escolha_arquivo = int(escolha_arquivo)
-        if 1 <= escolha_arquivo <= len(pasta):
-            escolha = pasta[escolha_arquivo - 1]
-            arquivo_pasta = os.path.join(pasta_pedidos, escolha)
-            with open(arquivo_pasta, 'r') as arquivo:
-                pedido = json.load(arquivo)
+    if os.path.exists(pasta_pedidos):
+        pasta = os.listdir(pasta_pedidos)
+        if not pasta:
+            print('Nenhum pedido salvo.')
+            return
+    
+        for i, valor in enumerate(pasta):
+            print(f'{i + 1} - {valor}') 
+            print()
+        escolha_arquivo = input('Escolha um pedido da lista: ')
+        if escolha_arquivo.isdigit():
+            escolha_arquivo = int(escolha_arquivo)
+            if 1 <= escolha_arquivo <= len(pasta):
+                escolha = pasta[escolha_arquivo - 1]
+                arquivo_pasta = os.path.join(pasta_pedidos, escolha)
+                with open(arquivo_pasta, 'r') as arquivo:
+                    pedido = json.load(arquivo)
 
-            print('=' * 30)
-            print(f"Cliente: {pedido['cliente']}")
-            print(f"Status: {pedido['status']}")
-            for i,produto in enumerate(pedido['produtos'], start=1):
-                print(f"{i} - {produto['nome']} - R${produto['preco']:.2f}")
-            print(f"Total: {pedido['total']:.2f}")
-            print('=' * 30)
-
+                print('=' * 30)
+                print(f"Cliente: {pedido['cliente']}")
+                print(f"Status: {pedido['status']}")
+                for i,produto in enumerate(pedido['produtos'], start=1):
+                    print(f"{i} - {produto['nome']} - R${produto['preco']:.2f}")
+                print(f"Total: {pedido['total']:.2f}")
+                print('=' * 30)
+    else:
+        print('Nenhum pedido encontrado')
+        
             
         
