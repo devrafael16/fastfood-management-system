@@ -139,28 +139,101 @@ def ver_pedido():
         if not pasta:
             print('Nenhum pedido salvo.')
             return
-    
+
         for i, valor in enumerate(pasta):
             print(f'{i + 1} - {valor}') 
-            print()
-        escolha_arquivo = input('Escolha um pedido da lista: ')
-        if escolha_arquivo.isdigit():
-            escolha_arquivo = int(escolha_arquivo)
-            if 1 <= escolha_arquivo <= len(pasta):
-                escolha = pasta[escolha_arquivo - 1]
-                arquivo_pasta = os.path.join(pasta_pedidos, escolha)
-                with open(arquivo_pasta, 'r') as arquivo:
-                    pedido = json.load(arquivo)
+            
+        while True:
+            escolha_arquivo = input('Escolha um pedido da lista: ')
+            if escolha_arquivo.isdigit():
+                escolha_arquivo = int(escolha_arquivo)
+                if 1 <= escolha_arquivo <= len(pasta):
+                    escolha = pasta[escolha_arquivo - 1]
+                    arquivo_pasta = os.path.join(pasta_pedidos, escolha)
+                    with open(arquivo_pasta, 'r') as arquivo:
+                        pedido = json.load(arquivo)
 
-                print('=' * 30)
-                print(f"Cliente: {pedido['cliente']}")
-                print(f"Status: {pedido['status']}")
-                for i,produto in enumerate(pedido['produtos'], start=1):
-                    print(f"{i} - {produto['nome']} - R${produto['preco']:.2f}")
-                print(f"Total: {pedido['total']:.2f}")
-                print('=' * 30)
+                    print('=' * 30)
+                    print(f"Cliente: {pedido['cliente']}")
+                    print(f"Status: {pedido['status']}")
+                    print('Produtos:')
+                    for i,produto in enumerate(pedido['produtos'], start=1):
+                        print(f"{i} - {produto['nome']} - R${produto['preco']:.2f}")
+                    print(f"Total: R${pedido['total']:.2f}")
+                    print('=' * 30)
+                    break
+                else:
+                    print('Pedido inválido.')
+                    continue
+            else:
+                print('Valor inválido. Digite apenas números.')
+                continue
     else:
         print('Nenhum pedido encontrado')
         
+def atualizar_status():
+    caminho_pasta = os.path.dirname(__file__)
+    pasta_pedidos = os.path.join(caminho_pasta, 'pedidos')
+    if os.path.exists(pasta_pedidos):
+        pasta = os.listdir(pasta_pedidos)
+        if not pasta:
+            print('Nenhum pedido salvo.')
+            return
+
+        for i, valor in enumerate(pasta):
+            print(f'{i + 1} - {valor}') 
             
+        while True:
+            escolha_arquivo = input('Escolha um pedido da lista: ')
+            if escolha_arquivo.isdigit():
+                escolha_arquivo = int(escolha_arquivo)
+                if 1 <= escolha_arquivo <= len(pasta):
+                    escolha = pasta[escolha_arquivo - 1]
+                    arquivo_pasta = os.path.join(pasta_pedidos, escolha)
+                    with open(arquivo_pasta, 'r') as arquivo:
+                        pedido = json.load(arquivo)
+
+                    print('=' * 30)
+                    print(f"Cliente: {pedido['cliente']}")
+                    print(f"Status: {pedido['status']}")
+                    print()
+                    print('Novo status:')
+                    print('1 - Em preparo')
+                    print('2 - Finalizado')
+                    print('3 - Entregue')
+                    while True:
+                        novo_status = input('Digite a opção do novo status: ')
+                        if novo_status.isdigit():
+                            novo_status = int(novo_status)
+                            if novo_status == 1:
+                                pedido['status'] = 'Em preparo'
+                            
+                            elif novo_status == 2:
+                                pedido['status'] = 'Finalizado'
+                                
+                            elif novo_status == 3:
+                                pedido['status'] = 'Entregue'
+                                
+                                
+                            else:
+                                print('Opção inválida! Escolha uma das opções a válidas.')
+                                continue
+                            with open(arquivo_pasta, 'w') as arquivo:
+                                    json.dump(pedido, arquivo, indent=4)
+                                    
+                            break
+
+                            
+                        else:
+                            print('Opção inválida! Digite apenas númeoros.')
+                            continue
+                    print('Status modificado com sucesso.')
+                    break
+
+                else:
+                    print('Pedido inválido.')
+                    continue
+            else:
+                print('Valor inválido. Digite apenas números.')
+                continue
         

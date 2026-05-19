@@ -17,6 +17,7 @@ def main():
         print(f'{"FAST FOOD":=^30}')
         print('1 - Novo pedido')
         print('2 - Ver pedidos salvos')
+        print('3 - Atualizar status')
         print('0 - Sair')
         print('=' * 30)
         menu = input('Digite a opção desejada: ')
@@ -28,6 +29,8 @@ def main():
             novo_pedido()
         elif menu == '2':
             ver_pedido()
+        elif menu == '3':
+            atualizar_status()
         else:
             print('Opção inválida!')
             
