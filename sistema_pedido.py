@@ -167,7 +167,7 @@ def ver_pedido():
                     print(f"Status: {pedido['status']}")
                     print('Produtos:')
                     for i,produto in enumerate(pedido['produtos'], start=1):
-                        print(f"{i} - {produto['nome']} - R${produto['preco']:.2f}")
+                        print(f"{i} - {produto['nome']:<15}  R${produto['preco']:6>.2f}")
                     print(f"Total: R${pedido['total']:.2f}")
                     print('=' * 30)
                     break

@@ -13,7 +13,7 @@ class Produto:
         self.preco = preco
 
     def mostrar(self):
-        return f'{self.nome} - R${self.preco:.2f}'
+        return f'{self.nome:<25}  - R${self.preco:>6.2f}'
     print()
     
     
