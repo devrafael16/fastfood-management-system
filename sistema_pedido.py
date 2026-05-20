@@ -152,6 +152,7 @@ def ver_pedido():
             print(f'{i + 1} - {valor}') 
             
         while True:
+            print()
             escolha_arquivo = input('Escolha um pedido da lista: ')
             print()
             if escolha_arquivo.isdigit():
@@ -194,6 +195,7 @@ def atualizar_status():
             print(f'{i + 1} - {valor}') 
             
         while True:
+            print()
             escolha_arquivo = input('Escolha um pedido da lista: ')
             print()
             if escolha_arquivo.isdigit():
@@ -213,6 +215,7 @@ def atualizar_status():
                     print('2 - Finalizado')
                     print('3 - Entregue')
                     while True:
+                        print()
                         novo_status = input('Digite a opção do novo status: ')
                         print()
                         if novo_status.isdigit():
@@ -263,6 +266,7 @@ def excluir_pedido():
             print(f'{i + 1} - {valor}') 
 
         while True:
+            print()
             num_pedido = input('Selecione o pedido que deseja exluir: ')
             print()
             if num_pedido.isdigit():
