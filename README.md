@@ -62,7 +62,7 @@ fastfood-management-system/
 ### 1. Clone o repositório
 
 ```bash
-git clone URL_DO_REPOSITORIO
+https://github.com/devrafael16/fastfood-management-system.git
 ```
 
 ### 2. Acesse a pasta do projeto
