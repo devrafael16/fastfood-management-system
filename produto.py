@@ -1,4 +1,6 @@
 from pedido import Pedido
+from rich import print 
+from rich.panel import Panel
 
 def linha():
     print()
@@ -12,5 +14,6 @@ class Produto:
 
     def mostrar(self):
         return f'{self.nome} - R${self.preco:.2f}'
+    print()
     
     

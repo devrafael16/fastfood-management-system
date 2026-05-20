@@ -3,13 +3,18 @@ from cliente import Cliente
 from pedido import Pedido
 import os
 import json
+from rich import print 
+from rich.console import Console
+from rich.panel import Panel
 
+console = Console()
 def linha():
     print()
     print('-' * 24)
     print()
 
 def novo_pedido():
+    """Cria e salvo um novo pedido"""
     nome = input('Digite seu nome: ')
     cliente1 = Cliente(nome)
 
@@ -27,7 +32,7 @@ def novo_pedido():
     cliente1.adicionar_pedido(pedido_atual)
     
     print()
-    print(f'Bem-vindo {cliente1.nome}!'.center(24))
+    console.print(Panel.fit(f'[green]Bem-vindo {cliente1.nome}![/]'.center(24), border_style='green'))
 
     while True:
     
@@ -35,6 +40,7 @@ def novo_pedido():
         print('Seu pedido atual:'.center(24))
         if pedido_atual.pedido_vazio():
             print('Pedido vazio.'.center(24))
+            print()
 
         else:
             pedido_atual.listar_produtos()
@@ -62,6 +68,7 @@ def novo_pedido():
 
             print()
             print('Resumo do pedido:')
+            print()
             pedido_atual.listar_produtos()
             print(f'Status do pedido: {pedido_atual.status}')
             print(f'Total de itens: {len(pedido_atual.produtos)}')
@@ -132,6 +139,7 @@ def novo_pedido():
             print('Digite uma opção válida.')
         
 def ver_pedido():
+    """Exibe pedidos salvos com todas as informações"""
     caminho_pasta = os.path.dirname(__file__)
     pasta_pedidos = os.path.join(caminho_pasta, 'pedidos')
     if os.path.exists(pasta_pedidos):
@@ -145,6 +153,7 @@ def ver_pedido():
             
         while True:
             escolha_arquivo = input('Escolha um pedido da lista: ')
+            print()
             if escolha_arquivo.isdigit():
                 escolha_arquivo = int(escolha_arquivo)
                 if 1 <= escolha_arquivo <= len(pasta):
@@ -172,6 +181,7 @@ def ver_pedido():
         print('Nenhum pedido encontrado')
         
 def atualizar_status():
+    """Atualiza/altera o status de um pedido salvo."""
     caminho_pasta = os.path.dirname(__file__)
     pasta_pedidos = os.path.join(caminho_pasta, 'pedidos')
     if os.path.exists(pasta_pedidos):
@@ -185,6 +195,7 @@ def atualizar_status():
             
         while True:
             escolha_arquivo = input('Escolha um pedido da lista: ')
+            print()
             if escolha_arquivo.isdigit():
                 escolha_arquivo = int(escolha_arquivo)
                 if 1 <= escolha_arquivo <= len(pasta):
@@ -203,6 +214,7 @@ def atualizar_status():
                     print('3 - Entregue')
                     while True:
                         novo_status = input('Digite a opção do novo status: ')
+                        print()
                         if novo_status.isdigit():
                             novo_status = int(novo_status)
                             if novo_status == 1:
@@ -236,4 +248,51 @@ def atualizar_status():
             else:
                 print('Valor inválido. Digite apenas números.')
                 continue
+        
+def excluir_pedido():
+    """Exclui um pedido salvo."""
+    caminho_pasta = os.path.dirname(__file__)
+    pasta_pedidos = os.path.join(caminho_pasta, 'pedidos')
+    if os.path.exists(pasta_pedidos):
+        pasta = os.listdir(pasta_pedidos)
+        if not pasta:
+            print('Nenhum pedido salvo.')
+            return
+
+        for i, valor in enumerate(pasta):
+            print(f'{i + 1} - {valor}') 
+
+        while True:
+            num_pedido = input('Selecione o pedido que deseja exluir: ')
+            print()
+            if num_pedido.isdigit():
+                num_pedido = int(num_pedido)
+                if 1 <= num_pedido <= len(pasta):
+                    nome_pedido = pasta[num_pedido - 1]
+                    print(f'Tem certeza que quer excluir o {nome_pedido}?')
+                    print('1 - Sim')
+                    print('2 - Não')
+                    confirmacao = input('')
+                    print()
+                    if confirmacao.isdigit():
+                        confirmacao = int(confirmacao)
+                        if confirmacao == 1:
+                            escolha = pasta[num_pedido - 1]
+                            arquivo_pasta = os.path.join(pasta_pedidos, escolha)
+                            os.remove(arquivo_pasta)
+                            print('Pedido excluido com sucesso!')
+                            return
+                        elif confirmacao == 2:
+                            break
+                        break
+                    else:
+                        print('Opção inválida. Digite 1 para sim ou 2 para não.')
+                        continue
+                else:
+                    print('Opção inválida. Digite um pedido válido.')
+                    continue
+            else:
+                print('Opção inválida! Digite apenas números.')
+                continue
+
         

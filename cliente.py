@@ -1,5 +1,7 @@
 from pedido import Pedido
 from produto import Produto
+from rich import print 
+from rich.panel import Panel
 
 def linha():
     print()
@@ -16,6 +18,7 @@ class Cliente():
 
     def resumo(self):
         print(f'Cliente: {self.nome}')
+        print()
 
         for i, pedido in enumerate(self.pedidos, start=1):
             print(f'\nPedido {i}:')
@@ -23,3 +26,4 @@ class Cliente():
             print(f'Total: R${pedido.total():.2f}')
             print('-' * 30)
         print(f'Valor total dos pedidos: R${sum(pedido.total() for pedido in self.pedidos):.2f}')
+        print()
